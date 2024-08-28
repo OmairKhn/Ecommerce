@@ -14,6 +14,7 @@ import UpdateProduct from "./pages/admin/pages/UpdateProduct";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Navigate } from 'react-router-dom';
+import AllProducts from "./pages/allproducts/AllProducts";
 
 const App = () => {
   return (
@@ -38,6 +39,14 @@ const App = () => {
               </ProtectedRoutesForAdmin>
             }
           />
+            {/* <Route
+            path="/user-dashboard"
+            element={
+              <ProtectedRoutes>
+                <UserDashboard />
+              </ProtectedRoutes>
+            }
+          /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route
@@ -57,6 +66,14 @@ const App = () => {
             }
           />
 
+  <Route
+            path="/allproduct"
+            element={
+              <ProtectedRoutes>
+                <AllProducts />
+              </ProtectedRoutes>
+            }
+          />
           <Route path="/productinfo/:id" element={<ProductInfo />} />
           <Route path="/*" element={<Nopage />} />
         </Routes>

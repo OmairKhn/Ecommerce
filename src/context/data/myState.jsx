@@ -6,7 +6,55 @@ import { fireDB } from '../../firebase/FirebaseConfig';
 
 function MyState(props) {
    const [mode,setMode] = useState('light');
+   const [getAllProduct, setGetAllProduct] = useState([]);
 
+   const getAllProductFunction = async () => {
+    setLoading(true);
+    try {
+        const q = query(
+            collection(fireDB, "products"),
+            orderBy('time')
+        );
+        const data = onSnapshot(q, (QuerySnapshot) => {
+            let productArray = [];
+            QuerySnapshot.forEach((doc) => {
+                productArray.push({ ...doc.data(), id: doc.id });
+            });
+            setGetAllProduct(productArray);
+            setLoading(false);
+        });
+        return () => data;
+    } catch (error) {
+        console.log(error);
+        setLoading(false);
+    }
+}
+const [getAllOrder, setGetAllOrder] = useState([]);
+const getAllOrderFunction = async () => {
+  setLoading(true);
+  try {
+      const q = query(
+          collection(fireDB, "order"),
+          orderBy('time')
+      );
+      const data = onSnapshot(q, (QuerySnapshot) => {
+          let orderArray = [];
+          QuerySnapshot.forEach((doc) => {
+              orderArray.push({ ...doc.data(), id: doc.id });
+          });
+          setGetAllOrder(orderArray);
+          setLoading(false);
+      });
+      return () => data;
+  } catch (error) {
+      console.log(error);
+      setLoading(false);
+  }
+}
+useEffect(() => {
+  getAllProductFunction();
+  getAllOrderFunction();
+}, []);
    const toggleMode = () => {
     if (mode === 'light') {
         setMode('dark');
@@ -95,28 +143,24 @@ function MyState(props) {
     getProductData();
   }, []);
 
-const edithandles = (item) => {
-    setProduct(item)
-}
-const editproduct = async () => {
+  const edithandle = (item) => {
+    setProducts(item)
+  }
+  // update product
+  const updateProduct = async (item) => {
     setLoading(true)
-console.log("click")
-try{
-  console.log('i am click')
-    await setDoc(doc(fireDB, 'products' , products.id),products);
-    toast.success("Product Updated successfully")
-
-    setTimeout(() => {
-        window.location.href = '/dashboard'
-    },800);
-    getProductData();
-    setLoading(false)
-} catch (error) {
-    setLoading(false)
-    console.log(error)
-}
-setProduct("")
-}
+    try {
+      await setDoc(doc(fireDB, "products", products.id), products);
+      toast.success("Product Updated successfully")
+      getProductData();
+      setLoading(false)
+      window.location.href = '/dashboard'
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+    }
+    setProducts("")
+  }
 
   const delteProduct = async (item) => {
     setLoading(true)
@@ -137,7 +181,7 @@ setProduct("")
   const getOrderData = async () => {
     setLoading(true)
     try {
-      const result = await getDocs(collection(fireDb, "orders"))
+      const result = await getDocs(collection(fireDB, "order"))
       const ordersArray = [];
       result.forEach((doc) => {
         ordersArray.push(doc.data());
@@ -152,18 +196,44 @@ setProduct("")
     }
   }
 
+  const [user, setUser] = useState([]);
+
+  const getUserData = async () => {
+    setLoading(true)
+    try {
+      const result = await getDocs(collection(fireDb, "user"))
+      const usersArray = [];
+      result.forEach((doc) => {
+        usersArray.push(doc.data());
+        setLoading(false)
+      });
+      setUser(usersArray);
+      console.log(usersArray)
+      setLoading(false);
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     getProductData();
-    getOrderData()
+    getOrderData();
+    getUserData();
 
   }, []);
 
-
+  const [searchkey, setSearchkey] = useState('')
+  const [filterType, setFilterType] = useState('')
+  const [filterPrice, setFilterPrice] = useState('')
   return (
     <MyContext.Provider value={{ 
         mode, toggleMode, loading,setLoading,
-        products, setProducts,addProduct,product, edithandles, editproduct, delteProduct,order }}>
+        products, setProducts,addProduct,product, edithandle, updateProduct, delteProduct,order , getAllProduct,
+        getAllProductFunction, getAllOrder,user,
+        searchkey, setSearchkey,filterType, setFilterType,
+        filterPrice, setFilterPrice  
+}}>
         {props.children}
       </MyContext.Provider>
   )

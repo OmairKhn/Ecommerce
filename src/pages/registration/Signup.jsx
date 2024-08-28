@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import myContext from '../../context/data/myContext';
 import { toast } from 'react-toastify';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -14,7 +14,9 @@ const Signup = () => {
 
     const context = useContext(myContext);
     const { loading, setLoading } = context;
-
+    
+    const navigate=useNavigate();
+     
     const signup = async () => {
         setLoading(true)
 
@@ -39,7 +41,7 @@ setName("");
 setEmail("");
 setPassword("");
 setLoading(false)
-
+navigate('/login');
 }   catch(error){
     console.log(error)
     setLoading(false)
