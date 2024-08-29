@@ -201,7 +201,7 @@ useEffect(() => {
   const getUserData = async () => {
     setLoading(true)
     try {
-      const result = await getDocs(collection(fireDb, "user"))
+      const result = await getDocs(collection(fireDB, "user"))
       const usersArray = [];
       result.forEach((doc) => {
         usersArray.push(doc.data());
