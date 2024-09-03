@@ -65,7 +65,7 @@ useEffect(() => {
    document.body.style.backgroundcolor = "white"
 }
    }
-   const [loading, setLoading] = useState(false)
+   const [loading, setLoading] = useState(false) 
 
    const [products, setProducts] = useState({
     title: null,

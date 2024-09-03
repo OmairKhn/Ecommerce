@@ -85,7 +85,7 @@ const Navbar = () => {
                     )}
                   </div>
 
-                  {user.user.email === "admin12345@gmail.com" ? (
+                  {user.user.email === "admin112233@gmail.com" ? (
                     <div className="flow-root">
                       <Link
                         to={"/dashboard"}
@@ -228,7 +228,7 @@ const Navbar = () => {
                   ) : (
                     ""
                   )}
-                  {user?.user?.email === "admin12345@gmail.com" ? (
+                  {user?.user?.email === "admin112233@gmail.com" ? (
                     <div className="flow-root">
                       <Link
                         to={"/dashboard"}
