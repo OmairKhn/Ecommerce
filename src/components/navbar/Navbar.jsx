@@ -12,7 +12,9 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { mode, toggleMode } = context;
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
   //   console.log(user.user.email);
   const logout = () => {
     localStorage.clear("user");
@@ -71,21 +73,34 @@ const Navbar = () => {
                   >
                     All Products
                   </Link>
-                  <div className="flow-root">
-                    {user ? (
-                      <Link
-                        to={"/order"}
-                        className="text-sm font-medium text-gray-700 "
+                  {user ? (
+                    <div className="flow-root">
+                      <a
+                        
+                        className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
-                        Order
-                      </Link>
+                       <Link to={"/order"}>Order</Link>
+                      </a>
+                    </div>
+                  ) : null}
+                  <div className="flow-root">
+                    {user ? (
+                      <div className="flow-root">
+                        <a
+                          onClick={logout}
+                          className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                          style={{ color: mode === "dark" ? "white" : "" }}
+                        >
+                          Logout
+                        </a>
+                      </div>
                     ) : (
-                      ""
+                      <a>Login</a>
                     )}
                   </div>
 
-                  {user.user.email === "admin112233@gmail.com" ? (
+                  {user?.user?.email === "umairkhan1237@gmail.com" ? (
                     <div className="flow-root">
                       <Link
                         to={"/dashboard"}
@@ -95,23 +110,9 @@ const Navbar = () => {
                         admin
                       </Link>
                     </div>
-                  ) : (
-                    ""
-                  )}
+                  ) : null}
 
-                  {user ? (
-                    <div className="flow-root">
-                      <a
-                        onClick={logout}
-                        className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        Logout
-                      </a>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                 
                   <div className="flow-root">
                     <Link
                       to={"/user-dashboard"}
@@ -202,7 +203,7 @@ const Navbar = () => {
                       className=" text-2xl font-bold text-black  px-2 py-1 rounded"
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
-                      E-PAK
+                      E-Pak
                     </h1>
                   </div>
                 </Link>
@@ -218,17 +219,17 @@ const Navbar = () => {
                     All Products
                   </Link>
                   {user ? (
-                    <Link
-                      to={"/order"}
-                      className="text-sm font-medium text-gray-700 "
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      Order
-                    </Link>
-                  ) : (
-                    ""
-                  )}
-                  {user?.user?.email === "admin112233@gmail.com" ? (
+                    <div className="flow-root">
+                      <a
+                        
+                        className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                       <Link to={"/order"}>Order</Link>
+                      </a>
+                    </div>
+                  ) : null}
+                  {user?.user?.email === "umairkhan1237@gmail.com" ? (
                     <div className="flow-root">
                       <Link
                         to={"/dashboard"}
@@ -238,9 +239,7 @@ const Navbar = () => {
                         admin
                       </Link>
                     </div>
-                  ) : (
-                    ""
-                  )}
+                  ) : null}
 
                   {user ? (
                     <div className="flow-root">
@@ -253,7 +252,7 @@ const Navbar = () => {
                       </a>
                     </div>
                   ) : (
-                    ""
+                  <Link to={"/login"}> <a>Login</a> </Link> 
                   )}
                 </div>
 

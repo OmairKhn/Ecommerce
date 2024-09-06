@@ -87,23 +87,29 @@ export default App;
 
 
 // user
-export const ProtectedRoutes = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  if (user) {
-    return children;
-  } else {
-    return <Navigate to="/login" />;
-  }
-};
+
 
 //Admin
 
-export const ProtectedRoutesForAdmin = ({ children }) => {
-  const admin = JSON.parse(localStorage.getItem("user"));
-  // console.log(admin.user.email);
-  if (admin.user.email === "admin112233@gmail.com") {
-    return children;
-  } else {
+export const ProtectedRoutes = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (!user) {
+    // If no user is found, navigate to the login page
     return <Navigate to="/login" />;
-  } 
+  }
+
+  return children; // Render the child component if the user is logged in
+};
+
+
+export const ProtectedRoutesForAdmin = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (!user || user.user.email !== "umairkhan1237@gmail.com") {
+    // If no user or the user is not admin, navigate to the home page
+    return <Navigate to="/" />;
+  }
+
+  return children; // Render the child component if the admin is logged in
 };

@@ -32,7 +32,7 @@ function Order() {
   return (
     <Layout>
       {loading && <Loader />}
-      {cartItems.length > 0 ? (<>
+      {cartItems && cartItems.length > 0 ? (
         <div className="h-full pt-10">
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
             {cartItems.map((item, index) => (
@@ -60,11 +60,15 @@ function Order() {
                   </div>
                 </div>
               </div>
-           ))}
+            ))}
           </div>
         </div>
-     </> ) : (
-        <h2 className='text-center text-2xl text-white'>No Orders</h2>
+      ) : (
+        <div className="flex justify-center items-center ">
+          <h2 className="text-center text-2xl" style={{ color: mode === 'dark' ? 'white' : 'black' }}>
+            No Orders
+          </h2>
+        </div>
       )}
     </Layout>
   );
