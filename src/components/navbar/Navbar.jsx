@@ -67,8 +67,8 @@ const Navbar = () => {
                 </div>
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <Link
-                    to={"/allproducts"}
-                    className="text-sm font-medium text-gray-900 "
+                    to={"/allproduct"}
+                    className="text-sm font-medium text-gray-700 "
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >
                     All Products
@@ -76,11 +76,10 @@ const Navbar = () => {
                   {user ? (
                     <div className="flow-root">
                       <a
-                        
                         className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
-                       <Link to={"/order"}>Order</Link>
+                        <Link to={"/order"}>Order</Link>
                       </a>
                     </div>
                   ) : null}
@@ -96,7 +95,10 @@ const Navbar = () => {
                         </a>
                       </div>
                     ) : (
-                      <a>Login</a>
+                      <Link to={"/login"}>
+                        {" "}
+                        <a>Login</a>{" "}
+                      </Link>
                     )}
                   </div>
 
@@ -112,7 +114,6 @@ const Navbar = () => {
                     </div>
                   ) : null}
 
-                 
                   <div className="flow-root">
                     <Link
                       to={"/user-dashboard"}
@@ -221,11 +222,10 @@ const Navbar = () => {
                   {user ? (
                     <div className="flow-root">
                       <a
-                        
                         className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
-                       <Link to={"/order"}>Order</Link>
+                        <Link to={"/order"}>Order</Link>
                       </a>
                     </div>
                   ) : null}
@@ -252,7 +252,10 @@ const Navbar = () => {
                       </a>
                     </div>
                   ) : (
-                  <Link to={"/login"}> <a>Login</a> </Link> 
+                    <Link to={"/login"}>
+                      {" "}
+                      <a>Login</a>{" "}
+                    </Link>
                   )}
                 </div>
 
