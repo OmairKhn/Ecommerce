@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Order from "./pages/Order/Order";
 import { Cart } from "./pages/cart/Cart";
@@ -19,7 +19,7 @@ import AllProducts from "./pages/allproducts/AllProducts";
 const App = () => {
   return (
     <MyState>
-      <Router>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -78,7 +78,7 @@ const App = () => {
           <Route path="/*" element={<Nopage />} />
         </Routes>
         <ToastContainer />
-      </Router>
+      </BrowserRouter>
     </MyState>
   );
 };
